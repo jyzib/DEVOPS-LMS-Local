@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo Code Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+<style>
+    .container {
+
+  margin: 0 auto;
+  padding: 20px;
+
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.promo-code{
+    display: flex;
+}
+div#dataTable_filter {
+    display: flex;
+    margin-right: 7px;
+}
+header#page-header {
+    display: none;
+}
+</style>
+<style>
+    
+  main.table {
+  
+  background-color: white;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  border-radius: 0.8rem;
+  margin-bottom: 40px;
+  overflow: hidden;
+  }
+  
+  .table__header {
+  width: 100%;
+  height: 10%;
+  background-color: #fff4;
+  padding: .8rem 1rem;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+  
+  .table__header .input-group {
+  width: 35%;
+  height: 100%;
+  background-color: #fff5;
+  padding: 0 .8rem;
+  border-radius: 2rem;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  transition: .2s;
+  }
+  
+  .table__header .input-group:hover {
+  width: 45%;
+  background-color: #fff8;
+  box-shadow: 0 .1rem .4rem #0002;
+  }
+  
+  .table__header .input-group img {
+  width: 1.2rem;
+  height: 1.2rem;
+  }
+  
+  .table__header .input-group input {
+  width: 100%;
+  padding: 0 .5rem 0 .3rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  }
+  
+  .table__body {
+  width: 95%;
+  max-height: calc(89% - 1.6rem);
+  background-color: #fffb;
+  
+  margin: .8rem auto;
+  border-radius: .6rem;
+  
+  overflow: auto;
+  overflow: overlay;
+  }
+  
+  .table__body::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+  }
+  
+  .table__body::-webkit-scrollbar-thumb{
+  border-radius: .5rem;
+  background-color: #0004;
+  visibility: hidden;
+  }
+  
+  .table__body:hover::-webkit-scrollbar-thumb{ 
+  visibility: visible;
+  }
+  
+  table {
+  width: 100%;
+  }
+  
+  td img {
+  width: 36px;
+  height: 36px;
+  margin-right: .5rem;
+  border-radius: 50%;
+  
+  vertical-align: middle;
+  }
+  
+  table, th, td {
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: left;
+  }
+  
+  thead th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #f9fff7;
+  cursor: pointer;
+  text-transform: capitalize;
+  }
+  
+  tbody tr:nth-child(even) {
+  background-color: #0000000b;
+  }
+  
+  tbody tr {
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay), background-color 0s;
+  }
+  
+  tbody tr.hide {
+  opacity: 0;
+  transform: translateX(100%);
+  }
+  
+  tbody tr:hover {
+  background-color: #fff6 !important;
+  }
+  
+  tbody tr td,
+  tbody tr td p,
+  tbody tr td img {
+  transition: .2s ease-in-out;
+  }
+  
+  tbody tr.hide td,
+  tbody tr.hide td p {
+  padding: 0;
+  font: 0 / 0 sans-serif;
+  transition: .2s ease-in-out .5s;
+  }
+  
+  tbody tr.hide td img {
+  width: 0;
+  height: 0;
+  transition: .2s ease-in-out .5s;
+  }
+  
+  .status {
+  padding: .4rem 0;
+  border-radius: 2rem;
+  text-align: center;
+  }
+  
+  .status.delivered {
+  background-color: #86e49d;
+  color: #006b21;
+  }
+  
+  .status.cancelled {
+  background-color: #d893a3;
+  color: #b30021;
+  }
+  
+  .status.pending {
+  background-color: #ebc474;
+  }
+  
+  .status.shipped {
+  background-color: #6fcaea;
+  }
+  
+  
+  @media (max-width: 1000px) {
+  td:not(:first-of-type) {
+      min-width: 12.1rem;
+  }
+  }
+  
+  thead th span.icon-arrow {
+  display: inline-block;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  border: 1.4px solid transparent;
+  
+  text-align: center;
+  font-size: 1rem;
+  
+  margin-left: .5rem;
+  transition: .2s ease-in-out;
+  }
+  
+  thead th:hover span.icon-arrow{
+  border: 1.4px solid #6c00bd;
+  }
+  
+  thead th:hover {
+  color: #6c00bd;
+  }
+  
+  thead th.active span.icon-arrow{
+  background-color: #6c00bd;
+  color: #fff;
+  }
+  
+  thead th.asc span.icon-arrow{
+  transform: rotate(180deg);
+  }
+  
+  thead th.active,tbody td.active {
+  color: #6c00bd;
+  }
+  
+  .export__file {
+  position: relative;
+  }
+  
+  .export__file .export__file-btn {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background: #fff6 url(images/export.png) center / 80% no-repeat;
+  border-radius: 50%;
+  transition: .2s ease-in-out;
+  }
+  
+  .export__file .export__file-btn:hover { 
+  background-color: #fff;
+  transform: scale(1.15);
+  cursor: pointer;
+  }
+  
+  .export__file input {
+  display: none;
+  }
+  
+  .export__file .export__file-options {
+  position: absolute;
+  right: 0;
+  
+  width: 12rem;
+  border-radius: .5rem;
+  overflow: hidden;
+  text-align: center;
+  
+  opacity: 0;
+  transform: scale(.8);
+  transform-origin: top right;
+  
+  box-shadow: 0 .2rem .5rem #0004;
+  
+  transition: .2s;
+  }
+  
+  .export__file input:checked + .export__file-options {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 100;
+  }
+  
+  .export__file .export__file-options label{
+  display: block;
+  width: 100%;
+  padding: .6rem 0;
+  background-color: #f2f2f2;
+  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  transition: .2s ease-in-out;
+  }
+  
+  .export__file .export__file-options label:first-of-type{
+  padding: 1rem 0;
+  background-color: #86e49d !important;
+  }
+  
+  .export__file .export__file-options label:hover{
+  transform: scale(1.05);
+  background-color: #fff;
+  cursor: pointer;
+  }
+  
+  .export__file .export__file-options img{
+  width: 2rem;
+  height: auto;
+  }
+  
+  span.lastdays {
+  font-weight: 100;
+  }
+  button.Download-more-details {
+  color: #8C62FF;
+  border: none;
+  padding: 6px 16px;
+  background: #E6DDFF;
+  border-radius: 11px;
+  }
+  p.Active_user {
+  position: absolute;
+  left: -40px;
+  color: gray;
+  top: 138px;
+  rotate: 269deg;
+  font-size: 12px;
+  }
+  p.Active_user1 {
+  padding: 10px;
+  
+  color: gray;
+  text-align: center;
+  font-size: 12px;
+  }
+  .graph_line {
+  position: relative;
+  }
+  .blue_text_section{
+  justify-content: space-between;
+  display: flex;
+  }
+  figcaption.login_details {
+  /* margin: auto; */
+  display: flex;
+  row-gap: 13px;
+  flex-direction: column;
+  margin-top: 10px;
+  padding-left: 43px;
+  justify-content: center;
+  }
+  button.viewAll {
+  background: #FFD7B1;
+  border: none;
+  padding: 5px;
+  border-radius: 7px;
+  padding: 6px 15px;
+  }
+  .status.delivered {
+  background-color: #86e49d;
+  color: #006b21;
+  width: 69px;
+  text-align: center;
+  }
+  td.center {
+  text-align: -webkit-center;
+  }
+  p.status.Analytics {
+  border-radius: 8px;
+  background: #E6DDFF;
+  width: 214px;
+  color: #8C62FF;
+  }
+  p.status.Analytics1 {
+  border-radius: 8px;
+  background: #E6DDFF;
+  width: 114px;
+  color: #8C62FF;
+  }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #5454544a;
+    z-index: 9;
+}
+  .custome-btn{
+    margin: 10px;
+    width: 200px;
+  }
+  .promo-code {
+    display: flex;
+    flex-direction: column;
+}
+.Generate-conterner {
+    display: flex;
+    align-items: center;
+    column-gap: 17px;
+}
+.Generate {
+    background: #6136ff;
+    color: white;
+    height: 100%;
+    padding: 9px;
+    border-radius: 6px;
+}
+.modal-pop {
+    position: fixed;
+    background: white;
+    padding: 42px;
+    top: -61%;
+    left: 50%;
+    width: 500px;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+}
+.overlay{
+  display: none;
+}
+span.cross-modal {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+  </style>
+<body>
+
+
+
+  <div class="container">
+
+    <main class="table">
+      <section class="table__header">
+          <div class="Course_Pogress">
+              <h3>PromoCodes</h3>
+          </div>
+     
+  
+      </section>
+      <section class="table__body">
+        <table id="dataTable" >
+            <thead>
+              <tr>
+                  <th> Id <span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Promocodename<span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Percentage <span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Expireon<span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Createdtime <span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Usagecount <span class="icon-arrow">&UpArrow;</span></th>
+                  <th> Remainingusagecount <span class="icon-arrow">&UpArrow;</span></th>
+              </tr>
+          </thead>
+              <tbody class="body-table">
+             
+              </tbody>
+          </table>
+        </section>
+        <button  class="custome-btn btn btn-primary "> Add Promo Code</button>
+  </main>
+  <div class="overlay"></div>
+  <div class="modal-pop">
+
+    <span class="cross-modal" ><svg width="25" height="25" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M208.49 191.51C210.744 193.764 212.011 196.822 212.011 200.01C212.011 203.198 210.744 206.255 208.49 208.51C206.236 210.764 203.178 212.031 199.99 212.031C196.802 212.031 193.744 210.764 191.49 208.51L128 145L64.4901 208.49C62.2357 210.744 59.1782 212.011 55.9901 212.011C52.8019 212.011 49.7444 210.744 47.4901 208.49C45.2357 206.235 43.9692 203.178 43.9692 199.99C43.9692 196.802 45.2357 193.744 47.4901 191.49L111 128L47.5101 64.4898C45.2557 62.2355 43.9892 59.1779 43.9892 55.9898C43.9892 52.8017 45.2557 49.7441 47.5101 47.4898C49.7644 45.2355 52.8219 43.969 56.0101 43.969C59.1982 43.969 62.2557 45.2355 64.5101 47.4898L128 111L191.51 47.4798C193.764 45.2255 196.822 43.959 200.01 43.959C203.198 43.959 206.256 45.2255 208.51 47.4798C210.764 49.7341 212.031 52.7917 212.031 55.9798C212.031 59.1679 210.764 62.2255 208.51 64.4798L145 128L208.49 191.51Z" fill="black"/>
+      </svg>
+      </span>
+    <h2>Create a Promo Code</h2>
+    <form id="promoForm">
+      <div class="form-group promo-code">
+        <label for="codeName">Promo Code Name:</label>
+        <div class="Generate-conterner">
+        <input type="text" id="codeName" name="codeName" required>
+        <div class="Generate">Generate</div>
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="discount">Discount Percentage:</label>
+        <input type="number" id="discount" name="discount" min="1" max="100" required>
+      </div>
+      <div class="form-group">
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="date" id="expirationDate" name="expirationDate" required>
+      </div>
+      <div class="form-group">
+        <label for="usageLimit">Usage Limit:</label>
+        <input type="number" id="usageLimit" name="usageLimit" min="1" required>
+      </div>
+      <button class="btn btn-primary" type="submit">Generate Promo Code</button>
+    </form>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script >
+    const bodyTable = document.querySelector(".body-table")
+    const customebtn = document.querySelector(".custome-btn")
+const getalldata = async()=>{
+  const res = await fetch("{{config.wwwroot}}/local/promocode/GetAllcodeapi.php")
+  const data = await res.json()
+  const htmlTable = data.map((e,i)=>{
+return (`<tr ><td>${i+1}</td><td >${e.promocodename}</td><td>${e.percentage}</td><td>${e.expireon}</td><td>${e.createdtime}</td><td>${e.usagecount}</td><td>${e.remainingusagecount}</td></tr>`)
+  }).join(' ')
+
+  bodyTable.innerHTML = htmlTable
+  console.log(data)
+  $('#dataTable').DataTable({
+                data: data,
+                columns: [
+                    { data: 'id' },
+                    { data: 'promocodename' },
+                    { data: 'percentage' },
+                    { data: 'expireon' },
+                    { data: 'createdtime' },
+                    { data: 'usagecount' },
+                    { data: 'remainingusagecount' }
+                ]
+            });
+
+}
+
+getalldata()
+
+const modalpop = document.querySelector('.modal-pop')
+const overlay = document.querySelector('.overlay')
+const crossmodal = document.querySelector('.cross-modal')
+customebtn.addEventListener('click',()=>{
+
+  modalpop.style.top = '50%'
+  overlay.style.display = 'block'
+})
+
+crossmodal.addEventListener('click',()=>{
+
+  modalpop.style.top = '-100%'
+  overlay.style.display = 'none'
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const codeName = document.querySelector('#codeName')
+const usageLimit = document.querySelector('#usageLimit')
+const discount = document.querySelector('#discount')
+const expirationDate = document.querySelector('#expirationDate')
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const randomNum = ()=>{
+  return Math.floor(Math.random() * 2)
+}
+const randomval = ()=>{
+let str = ''
+    for(let i = 0 ;i<7;i++){
+      if(randomNum() == 0){
+        str += Math.floor(Math.random()*10)
+      }else{
+        str +=  String.fromCharCode( getRandomNumber(97,120))
+      }
+     }
+     codeName.value = str
+}
+
+const Generate = document.querySelector('.Generate')
+Generate.addEventListener('click',()=>{
+    randomval()
+})
+
+
+const postPromoCode =async (dataval)=>{
+const response = await fetch('{{config.wwwroot}}/local/promocode/promoCreationApi.php',{
+  method:'post',
+  body: JSON.stringify(dataval),
+})
+const data = await response.text()
+modalpop.style.top = '-100%'
+  overlay.style.display = 'none'
+  codeName.value = ''
+  usageLimit.value= " "
+  discount.value = " "
+  expirationDate.value = " "
+
+  getalldata()
+
+console.log(data)
+}
+
+const promoForm = document.querySelector('#promoForm');
+promoForm.addEventListener('submit',(e)=>{
+  e.preventDefault()
+console.log(expirationDate.value)
+console.log(discount.value)
+console.log(usageLimit.value)
+console.log(codeName.value)
+postPromoCode({promo:codeName.value,discount:discount.value,usageLimit:usageLimit.value,expirationDate:expirationDate.value})
+
+})
+
+
+
+postPromoCode()
+  </script>
+</body>
+</html>

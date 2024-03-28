@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/runningbatch/db" VERSION="20230609" COMMENT="XMLDB file for Moodle local/runningbatch"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_runningbatch" COMMENT="Default comment for local_runningbatch, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="curriculum1" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="curriculum2" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="curriculum3" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="curriculum4" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="curriculum5" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="curriculum6" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="cid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

@@ -1,0 +1,117 @@
+#table-invoice-paid {
+  background: linear-gradient(45deg, #ffeff4, #f1f3ff);
+  padding: 15px;
+  color: #000;
+}
+.gap-2{
+  gap: 10px;
+  }
+  .rows-custom .form-control {
+  width: 59px;
+  padding: 4px 3px;
+  }
+.w-30{
+  width: 30%;
+}
+#page-local-runningbatch-view_invoice_paid .dataformatselector.m-1 , #page-local-runningbatch-view_payment_history .dataformatselector.m-1{
+  position: absolute;
+  right: 30px;
+  top: 25px;
+}
+#page-local-runningbatch-view_invoice_paid .dataformatselector .form-inline, #page-local-runningbatch-view_payment_history .dataformatselector .form-inline{
+  display: block !important;
+}
+#page-local-runningbatch-view_invoice_paid .generalbox thead  ,#page-local-runningbatch-view_payment_history .generalbox thead{
+  background: #f1f3ff;
+}
+#page-local-runningbatch-view_invoice_paid .generalbox thead th a , #page-local-runningbatch-view_payment_history .generalbox thead th a{
+  color: #000;
+}
+#page-local-runningbatch-view_invoice_paid #page-footer, #page-local-runningbatch-view_payment_history  #page-footer{
+  display: none;
+}
+#page-local-runningbatch-view_invoice_paid header#page-header, #page-local-runningbatch-view_payment_history header#page-header  {
+  margin: 0;
+  padding: 0;
+}
+div#goto-top-link .btn {
+  background: #0b2b47;
+  text-align: center;
+  color: white;
+  width: 60px;
+  padding: 16px;
+  border-radius: 50px;
+}
+.no-overflow>.generaltable {
+  border: 1px solid #ddd;
+}
+div#goto-top-link {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+div#goto-top-link .btn i {
+margin: 0;
+}
+#page-local-runningbatch-view_invoice_paid .dataformatselector .form-inline label, #page-local-runningbatch-view_payment_history  .dataformatselector .form-inline label{
+  justify-content: flex-start !important;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#page-local-runningbatch-view_invoice_paid .dataformatselector .btn-secondary, #page-local-runningbatch-view_payment_history  .dataformatselector .btn-secondary{
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+}
+#page-local-runningbatch-view_invoice_paid .dataformatselector .custom-select, #page-local-runningbatch-view_payment_history  .dataformatselector .custom-select{
+  margin-left: 0 !important;
+}
+
+#video-popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  #video-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    height: 0;
+    padding-bottom: 56.25%;
+    background-color: #000;
+    overflow: hidden;
+  }
+  
+  #video-popup video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  #video-popup-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #video-popup-controls button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  

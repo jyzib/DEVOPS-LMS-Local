@@ -1,0 +1,179 @@
+<div class="d-flex justify-content-between gap-2">
+    <div class="toggle">
+        <div class="logo">
+            <img src="images/logo.png">
+            <h2>croma<span class="danger">Prog</span></h2>
+        </div>
+        <div class="close" id="close-btn">
+            <span class="material-icons-sharp">
+                close
+            </span>
+        </div>
+    </div>
+    <!-- Sidebar Section -->
+
+
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main class="center-area">
+        <h1>Batch Details</h1>
+
+        {{#data}}
+        <div class="betch-orders">
+            <div class="flex-wrap d-flex" style="gap: 20px;">
+                <div class="main-card text-white">
+                    <div class="batch-detai">
+                        <h2 class="sub-head text-white">{{batch_name}}</h2>
+                    </div>
+                    <div class="all-batch-details">
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                                <div class="icon">
+                                    <i class="bi bi-calendar3"></i>
+                                </div>
+                                <div class="batch-details-text">
+                                    <p class="text-white mb-1">Batch Start Date</p>
+                                    <h5>{{start_datetime}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                            <div class="icon">
+                                <i class="bi bi-list-ol"></i>
+                            </div>
+                            <div class="batch-details-text">
+                                <p class="text-white mb-1">Student Count</p>
+                                <h5>{{total_members}} Student(s)</h5>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="batch-details">
+                           <div class="d-flex gap-2">
+                            <div class="icon">
+                                <i class="bi bi-person-check-fill"></i>
+                            </div>
+                            <div class="batch-details-text">
+                                <p class="text-white mb-1" >Attendance</p>
+                                <a style="color: #ff9800;" href="{{config.wwwroot}}/local/runningbatch/attendance.php?courseid={{courseid}}"><h5>View Attendance</h5></a>
+                            </div>
+                           </div>
+                        </div>
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                                <div class="icon">
+                                    <i class="bi bi-book-half"></i>
+                                </div>
+                                <div class="batch-details-text">
+                                    <p class="mb-1 text-white">Course</p>
+                                    <h5>{{coursename}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="batch-details">
+                           <div class="d-flex gap-2">
+                            <div class="icon">
+                                <i class="bi bi-clipboard2-pulse"></i>
+                            </div>
+                            <div class="batch-details-text">
+                                <p class="mb-1 text-white">Course Status</p>
+                                <h5>{{progress}}</h5>
+                            </div>
+                           </div>
+                        </div>
+                        {{#not_student}}
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                                <div class="icon">
+                                    <i class="bi bi-cast"></i>
+                                </div>
+                                <div class="batch-details-text">
+                                    <p  class="mb-1 text-white">Upload Viedo</p>
+                                    <a style="color: #ff9800;" href="{{config.wwwroot}}/course/modedit.php?add=label&type=&course={{courseid}}&section={{section}}&return=0&sr=0"><h5>Upload a video</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/not_student}}
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                                <div class="icon">
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <div class="batch-details-text">
+                                    <p class="text-white mb-1">Rating</p>
+                                    <h5>31 may 2023 (weekday)</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="batch-details">
+                            <div class="d-flex gap-2">
+                                <div class="icon">
+                                    <i class="bi bi-play-btn-fill"></i>
+                                </div>
+                                <div class="batch-details-text">
+                                    <p class="text-white mb-1">Vidoes</p>
+                                    <a style="color: #ff9800;" href="{{config.wwwroot}}/local/runningbatch/video_list.php?courseid={{courseid}}"><h5>View Videos</h5></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        {{/data}}
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section" id="">
+        <div class="card p-4  reminderssss">
+            <div class="notifications">
+                <div class="live-class">
+                    <h2>Take live class</h2>
+                </div>
+                <div class="content">
+                    <div class="info">
+                        <h3>Join our live class for an interactive learning experience. Do not miss out on valuable content </h3>
+                    </div>
+                </div>
+                <div style="width: 100%; margin-top: 14px;">
+                    <a href="{{meeting_url}}" class="purple-btncurtom"><i class="bi bi-ubuntu"></i> &nbsp;{{#if_student}}Start Class{{/if_student}}{{^if_student}}Go live Now{{/if_student}}</a>
+                </div>
+            </div>
+
+            <div class="notifications">
+                <div class="live-class">
+
+                    <h2>Course Curriculum</h2>
+                </div>
+
+                <div class="content">
+                    <div class="info">
+                        <h3>The course curriculum provides a structured outline of the topics, lessons,</h3>
+
+                    </div>
+
+
+                </div>
+                <div style="width: 100%; margin-top: 14px;">
+                    <a href="{{course_curriculum_url}}" class="purple-btncurtom"><i class="bi bi-check2-square"></i> &nbsp;{{#if_student}}Show Curriculum{{/if_student}}{{^if_student}} Mark Curriculum{{/if_student}}</a>
+                </div>
+            </div>
+
+            <!-- <div class="notification add-reminder">
+                    <div>
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Reminder</h3>
+                    </div>
+                </div> -->
+
+        </div>
+    </div>
+</div>

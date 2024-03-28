@@ -1,0 +1,92 @@
+@media (min-width:1200px) and (max-width:1366px){
+   .reminderssss  h3 {
+        font-weight: 500;
+        font-size: 0.75rem;
+    }
+    .batch_details-inner .w-50 {
+        width: 48.6%!important;
+    }
+    .columnleft {
+        flex: 0 0 16% !important;
+        max-width: 16% !important;
+        margin: 1% 1% 0 1%;
+    }
+    .w-50 {
+        width: 100%!important;
+    }
+    h2 {
+        font-size: 1rem;
+    }
+    small {
+        font-size: 0.56rem;
+    }
+    .right-section .user-profile {
+        padding: 10px;
+    }
+    .right-section .reminders .notification {
+        padding: 0.4rem 10px;
+        gap: 10px;
+    }
+    #rightsidebar.fixed-top {
+        width: 16%;
+    }
+    .contarea ul li {
+        position: relative;
+        padding: 5px 4%;
+        border-bottom: 1px solid #ddd;
+        display: inline;
+        margin: 0 1px;
+        font-size: 11px;
+    }
+    
+    ul.Custom_Navigation_inner li a {
+        gap: 8px;
+        font-size: .8rem;
+        padding: 6px 6px;
+    }
+    section#inst10 h5#instance-10-header {
+        font-size: 1rem;
+    }
+    #inst10 ul li p {
+        padding: 0;
+    }
+    h1 {
+        font-size: 1.2rem;
+    }
+    main .analyse h3 {
+        font-size: .85rem;
+    }
+    main .analyse>div {
+        background-color: var(--color-white);
+        padding: 20px 20px;
+    }
+    main .analyse>div:after {
+        width: 80px;
+        height: 80px;
+        right: -12px;
+        top: -20px;
+    }
+   
+    .contarea ul li::after {
+        left: -4px;
+        top: 10px;
+    }
+ 
+}
+
+@media (min-width:1367px) and (max-width:1440px) {
+    .columnleft {
+        flex: 0 0 16% !important;
+        max-width: 16% !important;
+        margin: 1% 1% 0 1%;
+    }
+    .w-50{
+        width: 100% !important;
+    }
+}
+
+
+
+#page-login-index div#page-content {
+    background-color: transparent;
+}

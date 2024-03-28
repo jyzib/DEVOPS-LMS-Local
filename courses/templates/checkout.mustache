@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Razorpay Payment Gateway Integration</title>
+</head>
+<style>
+    #page-content {
+    display: flex !important;
+    display: flex;
+    flex-direction: row-reverse;
+}
+header#page-header {
+    display: none;
+}
+section#region-main {
+    background-color: #f8f9ff00;
+}
+
+:root {
+	--green: #1cbd2c;
+	--grey: #c4c4c4;
+	--white: #ffffff;
+	--padding: 1em;
+}
+
+* {
+	padding: 0;
+	border: 0;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+.mainWrapper {
+    width: 22ch !important;
+    min-width: 46ch;
+    max-width: 75vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 49%;
+    left: 7%;
+    rotate: 90deg;
+}
+
+.statusBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0;
+	width: 100%;
+	position: relative;
+	cursor: default;
+}
+
+.statusBar::before {
+	content: "";
+	height: 0.3em;
+	background-color: var(--grey);
+	position: absolute;
+	left: var(--padding);
+	right: var(--padding);
+}
+
+.pBar {
+	content: "";
+	height: 0.3em;
+	border-radius: 0 0 0.15em 0.15em;
+	background-color: var(--green);
+	max-width: 100%;
+	margin: 10px #000000 solid;
+	position: absolute;
+	left: 0;
+	width: 0%;
+}
+
+.statusBar > .node {
+	background-color: var(--grey);
+	height: 1.2em;
+	width: 1.2em;
+	border-radius: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.node > .text {
+	font-weight: 200;
+	color: var(--grey);
+	text-align: center;
+	position: absolute;
+	top: 2.5em;
+	cursor: ;
+}
+
+.node.done {
+	background-color: var(--green);
+}
+
+.node > .text.done {
+	color: var(--green);
+}
+
+.node > .main {
+	position: absolute;
+	border: 0.2em var(--grey) solid;
+	width: 0;
+	height: 0;
+	border-radius: 100%;
+}
+
+.node > .main.done {
+	border: 0.2em var(--green) solid;
+	width: 2em;
+	height: 2em;
+	border-radius: 100%;
+}
+
+.mainWrapper > .buttonHolder {
+	margin-top: 3em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button {
+	padding: 0.5em;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin: 1em;
+	font-size: 1.3em;
+	border-radius: 1.5em;
+	cursor: pointer;
+}
+.button.b-next {
+	background-color: var(--green);
+	color: var(--white);
+}
+
+.button.b-next:hover {
+	box-shadow: 3px 5px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+.button.disabled,
+.button.disabled:hover {
+	opacity: 30%;
+	cursor: default;
+}
+
+.button.b-next.disabled:hover {
+	box-shadow: none;
+}
+
+.button.b-back {
+	box-shadow: 0px 0px 0px 0.2em var(--green) inset;
+	background-color: var(--white);
+	color: var(--green);
+}
+.node > .text {
+    font-weight: 200;
+    color: var(--grey);
+    font-size: 12px;
+    text-align: center;
+    position: absolute;
+    top: 2.5em;
+   
+    rotate: 270deg;
+    margin-left: 2px;
+    top: -49px;
+ 
+}
+.made {
+	position: absolute;
+	bottom: 0.7em;
+}
+
+.made > .credit {
+	opacity: 40%;
+	color: #4b4b4b;
+	text-align: center;
+}
+
+.custome-scrool {    display: flex;
+    flex-direction: column;
+    align-items: center;}
+
+    .custome-bar-left-body{
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 43px;
+    }
+    .custome-bar-l{
+        display: flex;
+    width: 100%;
+    align-items: center;
+    }
+    img.card-img-top {
+    height: 135px;
+    border-radius: 20px;
+}
+</style>
+<body>
+    <div class="custome-bar-left-body">
+        <div class="custome-bar-l">
+          <div class="mainWrapper">
+            <div class="statusBar">
+                <span style="width: 33%;" class="pBar" ></span>
+                <div class="node n0 done nConfirm0">
+                    <div class="main done m0 done nConfirm0"></div>
+                    <span class="text done t0 done nConfirm0">Confirm</span>
+                </div>
+        
+                <div class="node n1 done nConfirm1">
+                    <div class="main done m1 nConfirm1"></div>
+                    <span class="text done t1 nConfirm1">Review</span>
+                </div>
+                <div class="node n2 nConfirm2">
+                    <div class="main m2 nConfirm2"></div>
+                    <span class="text t2 nConfirm2">Payment</span>
+                </div>
+                <div class="node n3 nConfirm3">
+                    <div class="main m3 nConfirm3"></div>
+                    <span class="text t3 nConfirm3">Complete</span>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card ">
+                    <img src="https://raw.githubusercontent.com/chafikamr/FrontendMentor-order-comfirmation-snippet/16cf301566ec0f0e87a114d963779d45aef57789/images/illustration-hero.svg" class="card-img-top" alt="...">
+                    <div class="card-body px-4 text-center">
+                        <h5 class="card-title  mt-1">{{firstname}}</h5>
+                        <p class="card-text text-muted mt-3">
+                            Ipsa earum saepe tempora, neque laudantium non itaque ullam reiciendis dolore explicabo!
+                        </p>
+                        <div class="alert alert-light row plan ">
+                            <div class="col-3">
+                                <img src="https://raw.githubusercontent.com/chafikamr/FrontendMentor-order-comfirmation-snippet/16cf301566ec0f0e87a114d963779d45aef57789/images/icon-music.svg" class="img-responsive" alt="">
+                            </div>
+                            <div class="col-6">
+                                <div class="fw-bold"> </div>
+                                <div>₹{{totalamount}} </div>
+                            </div>
+                            <div class="col-3 d-flex align-items-center ">
+                                <a href="#"> Change</a>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <form id="payment-form" method="POST">
+        
+                                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                            </form>
+                        <button class="pay-now btn btn-primary btn-lg col-12 buy-now-btn  ">Proceed to payement</button>
+                          
+                          <a href="{{config.wwwroot}}/local/courses/cart.php">  <span class="text-secondary h6 mt-3 d-block">Cancel Order</span></a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    <script>
+
+        const paynow =  document.querySelector(".pay-now")
+     
+        var apikey = "{{apikey}}";
+        var price = "{{price}}"; 
+        var username = "{{username}}";
+        var logoimageurl = "{{logoimageurl}}";
+        var email = "{{email}}";
+        var phone = "{{phone}}";
+        var course = "{{courseid}}";
+        var orderid = "{{orderid}}";
+        var percentage = "{{percentage}}"
+        
+        console.log(percentage)
+        var options = {
+    key: apikey,
+    amount: price,
+    currency: "INR",
+    name: username,
+    description: "This is a testing description for payment.",
+    image: logoimageurl,
+    prefill: {
+        email: email,
+        contact: phone
+    },
+    course: course,
+    handler: function (response) {
+        console.log(response);
+        var razorpay_payment_id = response.razorpay_payment_id;
+        executeNextScript(razorpay_payment_id);
+    },
+    modal: {
+        ondismiss: function () {
+            // This function will be called when the Razorpay popup is closed
+            console.log('Razorpay popup closed');
+            back()
+            // Add your additional logic here
+        }
+    }
+};
+
+
+        var rzp = new Razorpay(options);
+
+paynow.addEventListener('click', async (e) => {
+    e.preventDefault();
+    rzp.open();
+    next()
+});
+const handleAPI = async (razorpay_payment_id) => {
+    try {
+        const response = await fetch('{{config.wwwroot}}/local/courses/payment/success.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ razorpay_payment_id ,price,username,email,phone,course,orderid,percentage})
+        });
+        const data = await response.json();
+
+
+    
+
+        window.location.href = '{{config.wwwroot}}/my/'
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+function executeNextScript(razorpay_payment_id) {
+    next()
+    console.log("Payment successful! Razorpay Payment ID: " + razorpay_payment_id);
+    handleAPI(razorpay_payment_id);
+
+}
+     window.addEventListener('load',()=>{
+    const ManageCourses  =  document.querySelector('.Manage-Courses ')
+    ManageCourses.classList.add('active')
+  })
+
+var state = 1;
+var stateMax = 3;
+
+
+
+
+function next(){
+
+	if (state < stateMax) {
+	
+
+		state += 1;
+
+		// Enables 'back' button if disabled
+
+
+		// Adds class to make nodes green
+		$(".nConfirm" + state).each(function () {
+			$(this).addClass("done");
+		});
+
+		// Progress bar animation
+		var pBar = (state / stateMax) * 100;
+		$(".pBar").css("width", `${pBar}%`);
+
+		// Disables 'next' button if end of steps
+	
+	}
+}
+
+
+function back(){
+
+	if (state > 0) {
+		
+
+		// Enables 'next' button if disabled
+	
+		// removes class that makes nodes green
+		$(".nConfirm" + state).each(function () {
+			$(this).removeClass("done");
+		});
+
+		state -= 1;
+
+		// Progress bar animation
+		var pBar = (state / stateMax) * 100;
+		$(".pBar").css("width", `${pBar}%`);
+
+		// Disables 'back' button if end of steps
+	
+	}
+}
+
+
+
+    </script>
+</body>
+
+</html>
